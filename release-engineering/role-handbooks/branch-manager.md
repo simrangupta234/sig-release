@@ -1,62 +1,61 @@
 # Branch Manager Handbook
 
-- [Branch Manager Handbook <!-- omit in toc -->](#branch-manager-handbook-)
-  - [Content Notice](#content-notice)
-  - [Overview](#overview)
-    - [Conventions](#conventions)
-  - [Prerequisites](#prerequisites)
-    - [Branch Management Onboarding](#branch-management-onboarding)
-    - [Machine setup](#machine-setup)
-      - [Operating System](#operating-system)
-      - [Release tooling](#release-tooling)
-      - [Google Cloud SDK](#google-cloud-sdk)
-      - [Sending mail](#sending-mail)
-      - [Skopeo](#skopeo)
-  - [Releases Management](#releases-management)
-    - [Creating and managing the Release Issue](#creating-and-managing-the-release-issue)
-      - [Testgrid Screenshots](#testgrid-screenshots)
-      - [Adding data about the Cloud Build Jobs](#adding-data-about-the-cloud-build-jobs)
-      - [Closing the Issue](#closing-the-issue)
-    - [Alpha Releases](#alpha-releases)
-      - [Alpha Stage](#alpha-stage)
-        - [krel stage](#krel-stage)
-      - [Alpha Release](#alpha-release)
-        - [krel release](#krel-release)
-        - [Mock vs nomock](#mock-vs-nomock)
-    - [Beta Releases](#beta-releases)
-    - [Release Candidates](#release-candidates)
-    - [Official Releases](#official-releases)
-      - [Security fixes](#security-fixes)
-      - [Debian and RPM Packaging](#debian-and-rpm-packaging)
-      - [Release Validation](#release-validation)
-    - [Post-release Activities](#post-release-activities)
-      - [Update kubekins-e2e variants](#update-kubekins-e2e-variants)
-      - [Cut next alpha](#cut-next-alpha)
-  - [Branch Management](#branch-management)
-    - [Branch Creation](#branch-creation)
-      - [During the release creation](#during-the-release-creation)
-      - [After the release creation](#after-the-release-creation)
-    - [Update test-infra configurations](#update-test-infra-configurations)
-      - [Update Slack exempt_branches](#update-slack-exempt_branches)
-      - [Update milestone appliers](#update-milestone-appliers)
-      - [Update milestone requirements](#update-milestone-requirements)
-      - [Update e2e variants](#update-e2e-variants)
-      - [Generate release branch jobs](#generate-release-branch-jobs)
-    - [Configure Merge Automation](#configure-merge-automation)
-      - [Tide](#tide)
-      - [Code Freeze](#code-freeze)
-      - [Code Thaw](#code-thaw)
-    - [Branch Fast Forward](#branch-fast-forward)
-    - [Reverts](#reverts)
-    - [Cherry Picks](#cherry-picks)
-  - [Staging Repositories](#staging-repositories)
-  - [Debugging](#debugging)
-  - [Search past builds](#search-past-builds)
-      - [Limitation](#limitation)
-  - [References](#references)
-    - [Test Infra references](#test-infra-references)
-  - [Background information](#background-information)
-
+<!-- toc -->
+- [Content Notice](#content-notice)
+- [Overview](#overview)
+  - [Conventions](#conventions)
+- [Prerequisites](#prerequisites)
+  - [Branch Management Onboarding](#branch-management-onboarding)
+  - [Machine setup](#machine-setup)
+    - [Operating System](#operating-system)
+    - [Release tooling](#release-tooling)
+    - [Google Cloud SDK](#google-cloud-sdk)
+    - [Sending mail](#sending-mail)
+    - [Skopeo](#skopeo)
+- [Releases Management](#releases-management)
+  - [Creating and managing the Release Issue](#creating-and-managing-the-release-issue)
+    - [Testgrid Screenshots](#testgrid-screenshots)
+    - [Adding data about the Cloud Build Jobs](#adding-data-about-the-cloud-build-jobs)
+    - [Closing the Issue](#closing-the-issue)
+  - [Alpha Releases](#alpha-releases)
+    - [Alpha Stage](#alpha-stage)
+      - [krel stage](#krel-stage)
+    - [Alpha Release](#alpha-release)
+      - [krel release](#krel-release)
+      - [Mock vs nomock](#mock-vs-nomock)
+  - [Beta Releases](#beta-releases)
+  - [Release Candidates](#release-candidates)
+  - [Official Releases](#official-releases)
+    - [Security fixes](#security-fixes)
+    - [Debian and RPM Packaging](#debian-and-rpm-packaging)
+    - [Release Validation](#release-validation)
+  - [Post-release Activities](#post-release-activities)
+    - [Update kubekins-e2e variants](#update-kubekins-e2e-variants)
+    - [Cut next alpha](#cut-next-alpha)
+- [Branch Management](#branch-management)
+  - [Branch Creation](#branch-creation)
+    - [During the release creation](#during-the-release-creation)
+    - [After the release creation](#after-the-release-creation)
+  - [Update test-infra configurations](#update-test-infra-configurations)
+    - [Update milestone appliers](#update-milestone-appliers)
+    - [Update milestone requirements](#update-milestone-requirements)
+    - [Update e2e variants](#update-e2e-variants)
+    - [Generate release branch jobs](#generate-release-branch-jobs)
+  - [Configure Merge Automation](#configure-merge-automation)
+    - [Tide](#tide)
+    - [Code Freeze](#code-freeze)
+    - [Code Thaw](#code-thaw)
+  - [Branch Fast Forward](#branch-fast-forward)
+  - [Reverts](#reverts)
+  - [Cherry Picks](#cherry-picks)
+- [Staging Repositories](#staging-repositories)
+- [Debugging](#debugging)
+- [Search past builds](#search-past-builds)
+    - [Limitation](#limitation)
+- [References](#references)
+  - [Test Infra references](#test-infra-references)
+- [Background information](#background-information)
+<!-- /toc -->
 
 ## Content Notice
 
@@ -212,16 +211,16 @@ It is also highly recommended to glance over the [Release Commands Cheat Sheet](
 
 Prior to cutting a release version, [open a "Cut a Release" issue](https://github.com/kubernetes/sig-release/issues/new?template=cut-release.md&title=Cut+1.x.y-%7Balpha%2Cbeta%2Crc%7D.z+release) on [kubernetes/sig-release](https://github.com/kubernetes/sig-release).
 
-On the issue template, there are comments describing the predefined items that 
+On the issue template, there are comments describing the predefined items that
 need to be completed.
 
 #### Testgrid Screenshots
 
 For the item `Screenshot unhealthy release branch testgrid boards...`:
 
-`krel testgridshot` takes care of generating screenshots of 
-[Testgrid](https://testgrid.k8s.io/) to keep as a reference of the state 
-it was in before cutting a release. This subcommand will generate images 
+`krel testgridshot` takes care of generating screenshots of
+[Testgrid](https://testgrid.k8s.io/) to keep as a reference of the state
+it was in before cutting a release. This subcommand will generate images
 of the boards and upload them to a Cloud Storage bucket, as well as the
 Markdown code.
 
@@ -242,20 +241,20 @@ Once the script generates the Markdown table, post it as a comment on the create
 
 #### Adding data about the Cloud Build Jobs
 
-When running a release cut, you should open a thread in the 
+When running a release cut, you should open a thread in the
 [#release-management][release-management-url] Slack channel and include links
-to the GCP build console. You can take a look at the 
+to the GCP build console. You can take a look at the
 [following thread][example-release-thread] as an example.
 
 [release-management-url]: https://app.slack.com/client/T09NY5SBT/CJH2GBF7Y
 [example-release-thread]: https://kubernetes.slack.com/archives/CJH2GBF7Y/p1600247891103600
 
-Once mock and nomock runs are complete, data about the jobs launched must be 
+Once mock and nomock runs are complete, data about the jobs launched must be
 collected in the issue. These are assembled in a table and correspond to the
 `Collect metrics, links...` check mark.
 
-After the release process has been completed, get the data table by using the 
-`krel history` subcommand. It will output a markdown table with the options used 
+After the release process has been completed, get the data table by using the
+`krel history` subcommand. It will output a markdown table with the options used
 to run the jobs, links to the GCB logs, and the result of each run.
 
 ```shell
@@ -265,8 +264,8 @@ The generated table is then appended to the release issue, as it can be seen in
 the [following issue for the v1.20.0-alpha.1 release](https://github.com/kubernetes/sig-release/issues/1249#issue-705792603).
 
 
-__Note:__ `krel history` works using the [Default Application 
-Credentials](https://cloud.google.com/sdk/gcloud/reference/auth/application-default) 
+__Note:__ `krel history` works using the [Default Application
+Credentials](https://cloud.google.com/sdk/gcloud/reference/auth/application-default)
 set in your environment. While you may be logged as a user with one or more Google
 accounts in the GCP SDK (which are used in `gsutil`, `gcloud`, etc), you need to
 make sure your user identity is set as DAC as software using the Google Cloud
@@ -400,13 +399,13 @@ To better prepare and see what to expect, this is a sequence of events that took
 
 #### Security fixes
 
-The Product Security Committee (PSC) may contact you via the [Security Release Team][security-release-team]
+The Security Response Committee (SRC) may contact you via the [Security Release Team][security-release-team]
 mailing list if there are security fixes needed on the release branch.
 
 Once the release has been confirmed to contain security fixes, the Branch Manager must inform the current
 Release Team Lead and Lead Shadows. Information pertaining to these fixes is considered need-to-know and should not be disseminated to anyone else on the Release Team.
 
-You must not make any public announcements regarding these fixes unless the PSC tells you to.
+You must not make any public announcements regarding these fixes unless the SRC tells you to.
 
 See the [Security Release Process](https://git.k8s.io/security/security-release-process.md) doc for more details.
 
@@ -501,17 +500,6 @@ git clone git@github.com:<username>/test-infra.git
 - [Install Bazel](https://docs.bazel.build/versions/master/install.html) or run Bazel inside a container
   - Running Bazel in a container is recommended over installing Bazel locally, as Bazel has many dependencies
 
-#### Update Slack exempt_branches
-
-The [Slack events Prow plugin](https://git.k8s.io/test-infra/prow/plugins/slackevents/slackevents.go) reports potentially dangerous or unexpected repository changes to Slack channels (for example, unauthorized pushes, rewrites, branch creations/deletions). The Release Managers are exempt from those alerts, therefore we need to add the newest release branch to the exempt branches list.
-
-- Find the current branch whitelist ([`config/prow/plugins.yaml`](https://git.k8s.io/test-infra/config/prow/plugins.yaml), search for `exempt_branches:`)
-- Remove the release branch blocks for the unsupported releases, if present
-- Add an entry for the newest release branch
-- Ensure only current [Release Managers](/release-managers.md#release-managers) are whitelisted for all `kubernetes/kubernetes` release branches
-
-Here's an [example PR](https://github.com/kubernetes/test-infra/pull/20074).
-
 #### Update milestone appliers
 
 The [milestone applier plugin](https://git.k8s.io/test-infra/prow/plugins/milestoneapplier/milestoneapplier.go) automatically applies a GitHub milestone to pull requests after they have merged.
@@ -529,7 +517,9 @@ Here's an [example PR](https://github.com/kubernetes/test-infra/pull/20075).
 
 If the [code freeze](#code-freeze) was enabled before creating the release branch, the milestone requirements wouldn't include the newest release branch.
 
-Find the query config for `kubernetes/kubernetes` (in [config.yaml](https://github.com/kubernetes/test-infra/blob/master/prow/config.yaml) file) with the code freeze enabled and add the newest release release branch.
+Find the query config for `kubernetes/kubernetes` (in [config.yaml][config.yaml] file) with the code freeze enabled and add the newest release release branch.
+
+[config.yaml]: https://github.com/kubernetes/test-infra/blob/3a6962d/config/prow/config.yaml
 
 Here's an [example PR](https://github.com/kubernetes/test-infra/pull/20077).
 
@@ -608,7 +598,7 @@ As Branch Manager, coordinate with the Release Lead on checking the exact config
 
 #### Tide
 
-Tide automates merges and is configured via a [config.yaml](https://github.com/kubernetes/test-infra/blob/master/prow/config.yaml) file. Tide identifies PRs that are mergeable using GitHub queries that correspond to the configuration. Here is an example of what the query config for `kubernetes/kubernetes` looks like without additional constraints related to the release cycle:
+Tide automates merges and is configured via a [config.yaml][config.yaml] file. Tide identifies PRs that are mergeable using GitHub queries that correspond to the configuration. Here is an example of what the query config for `kubernetes/kubernetes` looks like without additional constraints related to the release cycle:
 
 ```yaml
   - repos:

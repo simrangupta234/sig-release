@@ -40,13 +40,13 @@ topic will be and who is responsible for writing it. This person will become the
 primary contact for the documentation lead. It’s incredibly important that
 documentation work gets completed as quickly as possible.
 
-After this point, only release-blocking issues and PRs will be allowed in the
-milestone.
+At this point, only release-blocking issues and PRs within the milestone are
+allowed to be merged.
 
 ## Test Freeze
 
-The date after which no more tests may be added (or promoted to Conformance),
-unless there are release-blocking or other Exception-related reasons. Before
+The date after which no more tests may be changed (or promoted to Conformance),
+unless there are release-blocking or other exceptional reasons. Before
 this date, it is acceptable to improve test coverage of existing code. After
 this date, the goal is to fix, revert, or remove tests that are failing.
 
@@ -55,14 +55,14 @@ this date, the goal is to fix, revert, or remove tests that are failing.
 Thaw specifies the end of both [Code Freeze] and [Test Freeze]. At this point 
 it is expected that all outstanding PRs for the release of Kubernetes have been
 merged into the release branch. Assuming the release team agrees,
-[Code Freeze], will be lifted, and we enter Code Thaw. This means from a 
-technical perspective, that now the `master` and `release-1.x` branch diverge,
-whereas both kept in sync during [Code Freeze] and [Test Freeze]. After Code 
-Thaw the `master` branch develops toward the next minor release and the release
-branch goes into maintenance mode. From this point forward, any PRs intended
-for the current release must be cherry-picked into the appropriate branch.
+[Code Freeze], will be lifted, and we enter Thaw. This means from a 
+technical perspective, that now the `master` and `release-1.x` branch diverge.
+After Thaw, the `master` branch develops toward the next minor release and the
+release branch goes into maintenance mode. From this point forward, any PRs
+intended for the current release must be cherry-picked into the appropriate
+branch.
 
-![code-thaw-code-freeze](code-freeze-code-thaw.svg "Code Thaw vs Code Freeze")
+![code-freeze-code-thaw](code-freeze-code-thaw.svg "Code Freeze to Thaw")
 
 ## Exceptions
 
@@ -76,6 +76,20 @@ well-understood, limited in architectural scope, and low risk.  All of those
 factors should be considered in the approval process.  Enhancements on an
 feature branch with documentation, test cases, and passing CI are more likely to
 be accepted.
+
+## Feature Blog Freeze
+
+Feature blogs are an amazing way to showcase all the hard work you and your team
+have done with the enhancement. While providing technical depth in terms of content,
+they are also great avenues to attract newer contributors to the Kubernetes project.
+You can opt in to write a feature blog for your enhancement and this deadline is to
+freeze the collection phase for the ongoing cycle. Once the collection phase is
+completed, the Release Comms team will coordinate further with you to work out details
+around delivery & review.
+
+After the deadline passes if you haven't opted in & still would like to have a feature
+blog for your enhancement, please contact the current release communications lead on
+the #sig-release channel in Kubernetes Slack.
 
 ## Pruning
 

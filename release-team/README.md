@@ -29,8 +29,8 @@ which shall be the discharged by the Release Team.
 
 ## Specific responsibilities
 
-- Support SIG PM by providing tooling and processes for the generation of release notes
-- Coordinate with SIG PM to communicate enhancement burndown progress during a release cycle
+- Generation of release notes
+- Communicate enhancement burndown progress during a release cycle
 - Manage repositories and tooling dedicated to releasing Kubernetes which at time of chartering these include:
   - kubernetes/release
   - deb/rpm packaging and hosting
@@ -56,7 +56,7 @@ which shall be the discharged by the Release Team.
 - Identifying owning individuals and SIGs for blocking issues
 - Working with SIGs and individuals to drive resolution of open issues
 - Building summary of release criteria and status and publish to the community on a regular basis throughout the release cycle
-- Manage the contents of `kubernetes/enhancements` along with SIG PM
+- Manage the contents of `kubernetes/enhancements`
 - Define burndown process
   - use of GitHub labels to signal release blocking status
   - use of GitHub milestones to communicate release blocking issues
@@ -70,6 +70,8 @@ there are 3 types of Kubernetes releases:
 - Major (x.0.0)
 - Minor (x.x.0)
 - Patch (x.x.x)
+
+![release-team](release-team.svg "Release Team Diagram")
 
 | Role | Handbook |
 |---|---|
@@ -125,8 +127,8 @@ During the code freeze period, fix any bugs discovered with your enhancement, an
 ## Other activities of the Release Team
 
 ### During "Major" releases
-To date no major release has been scheduled, however, SIG Release would be responsible for working closely with SIG PM
-and SIG Testing to coordinate this effort across SIGs. The precise work required to produce a major release (e.g. 2.0, 3.0)
+To date no major release has been scheduled, however, SIG Release would be responsible for working closely with SIG Testing
+to coordinate this effort across SIGs. The precise work required to produce a major release (e.g. 2.0, 3.0)
 is undefined.
 
 ### During "Security" releases
@@ -143,27 +145,27 @@ If you're interested in learning more about how the Release Team is selected, as
 
 Across release cycles, one of the best signals for [issue triage](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md#milestones) is whether or not an issue or PR is actually targeted for the current milestone.
 
-To maintain up-to-date status on milestone inclusion, we rely on a set of Milestone Maintainers (members of the `kubernetes-milestone-maintainers` GitHub team) to apply the appropriate labels to issues / PRs. This is facilitated by `/milestone` commands and bot automation.
+To maintain up-to-date status on milestone inclusion, we rely on a set of Milestone Maintainers (members of the `milestone-maintainers` GitHub team) to apply the appropriate labels to issues / PRs. This is facilitated by `/milestone` commands and bot automation.
 
 Each release cycle, the current Release Team Lead must update membership to the aforementioned GitHub team.
 
-Maintainers of the `kubernetes-milestone-maintainers` GitHub team are defined as follows:
+Maintainers of the `milestone-maintainers` GitHub team are defined as follows:
 - SIG Release Chairs
 - Current Release Team Lead
 
-Members of the `kubernetes-milestone-maintainers` GitHub team can include:
+Members of the `milestone-maintainers` GitHub team can include:
 - SIG leadership (SIG Chairs / Technical Leads) from all SIGs
 - SIG milestone maintainers from all SIGs (in addition to SIG leadership)
 - Special code reviewers, as selected by SIG Release
 
 Maintainers of the GitHub team can, with justification, add or remove members at any time during release cycles.
 
-Members are expected to actively triage issues and PRs to retain membership in `kubernetes-milestone maintainers`. Members not fulfilling the duties of this role should be removed.
+Members are expected to actively triage issues and PRs to retain membership in `milestone maintainers`. Members not fulfilling the duties of this role should be removed.
 
-Milestone maintainers also have write access to [kubernetes/enhancements][k/enhancements], which allows them to keep enhancement tracking issue descriptions up-to-date.
+Milestone maintainers also have triage access to [kubernetes/enhancements][k/enhancements].
 
-To request membership to `kubernetes-milestone-maintainers` or update the team:
-- File a PR to [kubernetes/org][k/org] making changes to the `kubernetes-milestone-maintainers` team config [here](https://git.k8s.io/org/config/kubernetes/sig-release/teams.yaml). In your PR, include the reason you're requesting access in the description, as well as a comment next to your username in the team config
+To request membership to `milestone-maintainers` or update the team:
+- File a PR to [kubernetes/org][k/org] making changes to the `milestone-maintainers` team config [here](https://git.k8s.io/org/config/kubernetes/sig-release/teams.yaml). In your PR, include the reason you're requesting access in the description, as well as a comment next to your username in the team config
   e.g.,
   ```
   - justaugustus # Azure / PM / Release

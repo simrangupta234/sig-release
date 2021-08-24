@@ -1,6 +1,6 @@
 # Exceptions to Milestone Enhancement Complete dates
 
-For minor (1.x) milestones, the Kubernetes project has enhancement complete dates (hitting enhancement complete is all enhancement LGTMed and in submit queue with tests written) after which no new enhancements are accepted. Since minor releases come approximately quarterly, missing a enhancement complete date by just one day can mean that enhancement takes an additional 3 months to be released.
+For minor (1.x) milestones, the Kubernetes project has enhancement complete dates (hitting enhancement complete is all enhancement LGTMed and in submit queue with tests written) after which no new enhancements are accepted. Since minor releases come three times per year, missing a enhancement complete date by just one day can mean that enhancement takes an additional 4 months to be released.
 
 While the enhancement complete milestone dates are published well in advance, and the default is that missing the date means your enhancement will be part of the next milestone, there may be cases where an exception makes sense.
 
@@ -40,7 +40,7 @@ Email them to:
 
 
 Exceptions after enhancements freeze:
-If your issue was removed during the enhancements freeze please file an exception at your earlierst convinence.  All requests will be reviewed and either approved or rejected as they come in.  The release team will be responsible for approving or rejecting exceptions based on the questions above.  
+If your issue was removed during the enhancements freeze please file an exception at your earliest convenience.  All requests will be reviewed and either approved or rejected as they come in.  The release team will be responsible for approving or rejecting exceptions based on the questions above.  
 
 Exceptions after code freeze: 
 Requests for exceptions must be submitted before the first milestone burn down meeting. All requests for exception will be reviewed and either approved or rejected during the first meeting. The release team will be responsible for approving or rejecting exceptions based on the questions above.
